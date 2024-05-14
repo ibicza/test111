@@ -1,0 +1,9 @@
+version: '3.5'
+
+services:
+  GatewayService-app:
+    build: ./
+    container_name: 'java-app-GatewayService'
+    image: gateway_service-app
+    ports:
+      - "52562:52562"

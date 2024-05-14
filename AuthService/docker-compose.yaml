@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  db:
+    container_name: pg_db_authservice
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 2810
+      POSTGRES_DB: authService
+    ports:
+      - "5432:5434"
+  pgadmin:
+    container_name: pgadmin_authservice
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: hdnhdxv@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5051:80"
+
+  AuthService-app:
+    build: ./
+    container_name: 'java-app-AuthService'
+    image: auth_service-app
+    ports:
+      - "52569:52569"
+    environment:
+      SERVER_PORT: 52569
+      SPRING_DATASOURCE_URL: jdbc:postgresql://pg_db_authservice:5432/authService

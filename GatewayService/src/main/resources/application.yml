@@ -1,0 +1,40 @@
+server:
+    port: 8181
+
+service:
+    urls:
+        ticketingService: "lb://ticketingservice"
+        userService: "lb://userservice"
+        deliveryService: "lb://deliveryservice"
+        billingService: "lb://billingservice"
+        onecsyncService: "lb://onecsyncservice"
+        cartService: "lb://cartservice"
+        authenticationService: "lb://authService"
+        catalogService: "lb://catalogservice"
+
+spring:
+    application:
+        name: GatewayService
+
+    cloud:
+        gateway:
+            discovery:
+                locator:
+                    enabled: true
+                    lower-case-service-id: true
+
+    kafka:
+        producer:
+            bootstrap-servers: localhost:9092
+            key-serializer: org.apache.kafka.common.serialization.StringSerializer
+            value-serializer: org.apache.kafka.common.serialization.StringSerializer
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:8761/eureka
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: health

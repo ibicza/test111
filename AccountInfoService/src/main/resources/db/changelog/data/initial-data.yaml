@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1703708236125-1
+      author: Alexandra (generated)
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: account_id
+                  name: account_id
+                  type: INTEGER
+              - column:
+                  header: email
+                  name: email
+                  type: VARCHAR(255)
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/accounts.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: accounts

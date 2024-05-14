@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1703708236123-1
+      author: Alexandra (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: accounts_pkey
+                  name: account_id
+                  startWith: 4
+                  type: INTEGER
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: passport
+                  type: INTEGER
+
+            tableName: accounts

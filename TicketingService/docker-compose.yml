@@ -1,0 +1,30 @@
+version: '3.5'
+
+services:
+  db:
+    container_name: pg_db_ticketingService
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ticketingService
+    ports:
+      - "5432:5446"
+  pgadmin:
+    container_name: pgadmin_ticketingservice
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: hdnhdxv@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+  TicketingService-app:
+    build: ./
+    container_name: 'java-app-TicketingService'
+    image: ticketing_service-app
+    ports:
+      - "52558:52558"
+    environment:
+      SERVER_PORT: 52558
+      SPRING_DATASOURCE_URL: jdbc:postgresql://pg_db_ticketingService:5432/ticketingService

@@ -1,0 +1,19 @@
+#Eureka properties
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+#General application status (End point)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+server:
+  port: 0
+
+spring:
+  application:
+    name: eclient_oneCSyncService

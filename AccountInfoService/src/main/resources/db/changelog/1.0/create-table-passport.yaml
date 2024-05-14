@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1703708236124-1
+      author: Alexandra (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: passport_key
+                  name: passport_id
+                  startWith: 4
+                  type: INTEGER
+              - column:
+                  name: fullName
+                  type: VARCHAR(255)
+              - column:
+                  name: dateOfBirth
+                  type: TIMESTAMP
+              - column:
+                  name: passportNumber
+                  type: VARCHAR(255)
+              - column:
+                  name: issuingAuthority
+                  type: VARCHAR(255)
+              - column:
+                  name: issueDate
+                  type: TIMESTAMP
+              - column:
+                  name: expiryDate
+                  type: TIMESTAMP
+            tableName: passport

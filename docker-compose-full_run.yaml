@@ -1,0 +1,359 @@
+version: '3.8'
+#Не добавил OneCSyncService, DeliveryService т.к пустые
+services:
+#EurekaServer
+  eureka-server:
+    image: eureka-server
+    ports:
+      - "8761:8761"
+
+#ConfigServer
+  config_server-app:
+    image: config_server-app
+    depends_on:
+      - eureka-server
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+
+
+#account_info_service
+  account_info_service-app:
+    image: account_info_service-app
+    depends_on:
+      - AccountInfoService-db
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://AccountInfoService-db:5432/accountInfoService
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+  AccountInfoService-db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: accountInfoService
+    ports:
+      - "5432:5432"
+
+#authentication_service
+  authentication_service-app:
+    image: authentication_service-app
+    depends_on:
+      - AuthenticationService-db
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://AuthenticationService-db:5432/authenticationService
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+  AuthenticationService-db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: authenticationService
+    ports:
+      - "5433:5432"
+
+#AuthService
+  auth_service-app:
+    image: auth_service-app
+    depends_on:
+      - AuthService-db
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://AuthService-db:5432/authService
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+  AuthService-db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 2810
+      POSTGRES_DB: authService
+    ports:
+      - "5434:5432"
+
+#BillingService
+  billing_service-app:
+    image: billing_service-app
+    depends_on:
+      - BillingService-db
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://BillingService-db:5432/bills
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+  BillingService-db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: bills
+    ports:
+      - "5435:5432"
+
+#BlockService
+  block_service-app:
+    image: block_service-app
+    depends_on:
+      - BillingService-db
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://BlockService-db:5432/blocked
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+  BlockService-db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: blocked
+    ports:
+      - "5436:5432"
+
+#BookingService
+  booking_service-app:
+    image: booking_service-app
+    depends_on:
+      - BookingService-db
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://BookingService-db:5432/booking
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+  BookingService-db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: booking
+    ports:
+      - "5437:5432"
+
+#CancellationService
+  cancellation_service-app:
+    image: cancellation_service-app
+    depends_on:
+      - CancellationService-db
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://CancellationService-db:5432/cancellationService
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+  CancellationService-db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: cancellationService
+    ports:
+      - "5438:5432"
+
+#CartService
+  cart_service-app:
+    image: cart_service-app
+    depends_on:
+      - CartService-db
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://CartService-db:5432/cartService
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+  CartService-db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: cartService
+    ports:
+      - "5439:5432"
+
+#CatalogService
+  catalog_service-app:
+    image: catalog_service-app
+    depends_on:
+      - CatalogService-db
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://CatalogService-db:5432/catalog
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+  CatalogService-db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: catalog
+    ports:
+      - "5440:5432"
+
+#CleaningRefreshTokensService
+  cleaning_refresh_tokens_service-app:
+    image: cleaning_refresh_tokens_service-app
+    depends_on:
+      - CleaningRefreshTokensService-db
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://CleaningRefreshTokensService-db:5432/refresh
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+  CleaningRefreshTokensService-db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: refresh
+    ports:
+      - "5441:5432"
+
+#ClientProfileService
+  client_profile_service-app:
+    image: client_profile_service-app
+    depends_on:
+      - ClientProfileService-db
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://ClientProfileService-db:5432/profileService
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+  ClientProfileService-db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: profileService
+    ports:
+      - "5442:5432"
+
+#EmailService
+  email_service-app:
+    image: email_service-app
+    depends_on:
+      - eureka-server
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+
+#EventStreamCloud
+  event_stream_cloud-app:
+    image: event_stream_cloud-app
+    depends_on:
+      - EventStreamCloud-db
+      - kafka
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://EventStreamCloud-db:5432/eventStreamCloud
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+  EventStreamCloud-db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 2810
+      POSTGRES_DB: eventStreamCloud
+    ports:
+      - "5443:5432"
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+    depends_on:
+      - zookeeper
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+#OrderService
+  order_service-app:
+    image: order_service-app
+    depends_on:
+      - OrderService-db
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://OrderService-db:5432/order_database
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+  OrderService-db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: order_database
+    ports:
+      - "5445:5432"
+
+#TicketingService
+  ticketing_service-app:
+    image: ticketing_service-app
+    depends_on:
+      - TicketingService-db
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://TicketingService-db:5432/ticketingService
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+  TicketingService-db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ticketingService
+    ports:
+      - "5446:5432"
+
+#UserInfoService
+  user_info_service-app:
+    image: user_info_service-app
+    depends_on:
+      - UserInfoService-db
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://UserInfoService-db:5432/userInfo
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+  UserInfoService-db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: userInfo
+    ports:
+      - "5447:5432"
+
+#UserService
+  user_service-app:
+    image: user_service-app
+    depends_on:
+      - UserService-db
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://UserService-db:5432/userService
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+  UserService-db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: userService
+    ports:
+      - "5448:5432"
+
+#GatewayService
+  gateway_service-app:
+    image: gateway_service-app
+    depends_on:
+      - eureka-server
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/

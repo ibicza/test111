@@ -1,0 +1,29 @@
+server:
+  port: 8761
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 60000
+    response-cache-update-interval-ms: 300000
+  dashboard:
+    enabled: true
+  instance:
+    hostname: localhost
+
+spring:
+  application:
+    name: eureka-server
+
+logging:
+  level:
+    com.netflix.discovery: 'OFF'
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

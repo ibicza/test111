@@ -1,0 +1,57 @@
+#Eureka properties
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+#Logger properties
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+    root: WARN
+    your:
+      custom:
+        package: INFO
+
+#General application status (End point)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+server:
+  port: 8080
+
+#Database properties
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: 2810
+    url: jdbc:postgresql://localhost:5434/authService
+    username: postgres
+  docker:
+    compose:
+      enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+
+  #Liquibase properties
+  liquibase:
+    change-log: classpath:db.changelog-master.yaml
+    contexts: dev
+    enabled: true
+
+  #Spring Active Profile
+  profiles:
+    active: dev

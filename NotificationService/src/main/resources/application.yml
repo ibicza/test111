@@ -1,0 +1,30 @@
+server:
+  port: 0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: notification-service
+  datasource:
+    username: root
+    password: root
+    url: jdbc:postgresql://localhost:5444/notificationService
+  jpa:
+    hibernate:
+      ddl-auto: update
+  cloud:
+    config:
+      import-check:
+        enabled: false
+  kafka:
+    consumer:
+      group-id: app.1
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

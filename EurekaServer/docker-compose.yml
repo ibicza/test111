@@ -1,0 +1,9 @@
+version: '3.5'
+
+services:
+  eureka-server:
+    build: ./
+    container_name: 'java-app-EurekaServer'
+    image: eureka-server
+    ports:
+      - "8761:8761"

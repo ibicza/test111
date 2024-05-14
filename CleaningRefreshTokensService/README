@@ -1,0 +1,2 @@
+The Cleaning Refresh Tokens Service is a microservice designed to handle the periodic cleanup of expired refresh tokens in a database.
+This service is an essential component in a microservices architecture, ensuring that outdated and no longer valid refresh tokens are systematically removed

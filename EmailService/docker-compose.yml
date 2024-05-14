@@ -1,0 +1,9 @@
+version: '3.5'
+
+services:
+  EmailService-app:
+    build: ./
+    container_name: 'java-app-EmailService'
+    image: email_service-app
+    ports:
+      - "52561:52561"

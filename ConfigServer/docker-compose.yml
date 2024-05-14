@@ -1,0 +1,9 @@
+version: '3.5'
+
+services:
+  ConfigServer-app:
+    build: ./
+    container_name: 'java-app-ConfigServer'
+    image: config_server-app
+    ports:
+      - "52561:52561"

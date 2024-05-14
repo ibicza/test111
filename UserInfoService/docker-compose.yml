@@ -1,0 +1,29 @@
+version: '3.5'
+
+services:
+  db:
+    container_name: pg_db_userInfo
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: userInfo
+    ports:
+      - "5432:5447"
+
+  pgadmin:
+    container_name: pgadmin_userinfo
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: hdnhdxv@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+
+  UserInfoService-app:
+    build: ./
+    container_name: 'java-app-UserInfoService'
+    image: user_info_service-app
+    ports:
+      - "52569:52569"

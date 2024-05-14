@@ -1,0 +1,39 @@
+#Eureka properties
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+#JWT
+jwt:
+  accessTokenLifetime: PT1H
+  accessTokenSecret: 808bd7b5b348ace7685435a9e88b3ba0e9bbdb33b83b8d6f3ed6e342837ee4cc
+  refreshTokenLifetime: P30D
+  refreshTokenSecret: b6a4089bfc8a13131a362f792682f28dc8b60272e0011b0272caa584c8538924
+
+#General application status (End point)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+#Database properties
+server:
+  port: 50500
+spring:
+  application:
+    name: authService
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: postgres
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5433}/authenticationService
+    username: postgres
+  #Hibernate properties
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        hbm2ddl:
+          auto: create-drop
+        show_sql: true

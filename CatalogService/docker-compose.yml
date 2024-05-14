@@ -1,0 +1,30 @@
+version: '3.5'
+
+services:
+  db:
+    container_name: pg_db_catalog
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: catalog
+    ports:
+      - "5432:5440"
+  pgadmin:
+    container_name: pgadmin_catalog
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: hdnhdxv@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5070:80"
+  CatalogService-app:
+    build: ./
+    container_name: 'java-app-CatalogService'
+    image: catalog_service-app
+    ports:
+      - "52563:52563"
+    environment:
+      SERVER_PORT: 52563
+      SPRING_DATASOURCE_URL: jdbc:postgresql://pg_db_catalog:5432/catalog

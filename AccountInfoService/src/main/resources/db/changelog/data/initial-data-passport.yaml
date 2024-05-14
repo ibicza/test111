@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1703708236126-1
+      author: Alexandra (generated)
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: passport_id
+                  name: passport_id
+                  type: INTEGER
+              - column:
+                  header: fullName
+                  name: fullName
+                  type: VARCHAR(255)
+              - column:
+                  header: dateOfBirth
+                  name: dateOfBirth
+                  type: TIMESTAMP
+              - column:
+                  header: passportNumber
+                  name: passportNumber
+                  type: VARCHAR(255)
+              - column:
+                  header: issuingAuthority
+                  name: issuingAuthority
+                  type: VARCHAR(255)
+              - column:
+                  header: issueDate
+                  name: issueDate
+                  type: TIMESTAMP
+              - column:
+                  header: expiryDate
+                  name: expiryDate
+                  type: TIMESTAMP
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/passport.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: passport

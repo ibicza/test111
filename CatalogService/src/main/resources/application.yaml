@@ -1,0 +1,53 @@
+#Eureka properties
+eureka:
+  client:
+    enabled: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    appname: catalog-service
+    instance-id: ${spring.application.name}:${random.uuid}
+    lease-renewal-interval-in-seconds: 35
+    prefer-ip-address: true
+
+#General application status (End point)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, refresh
+
+#estController
+message: Hello, World!
+
+server:
+  port: 0
+
+#Spring Cloud properties
+spring:
+  application:
+    name: CatalogService
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
+  config:
+    import: 'optional:configserver:'
+  #Database properties
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: root
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5440}/catalog
+    username: root
+  #Hibernate properties
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  #Liquibase properties
+  liquibase:
+    change-log: classpath:db.changelog/db.changelog-master.yaml
+    contexts: dev
+    enabled: true

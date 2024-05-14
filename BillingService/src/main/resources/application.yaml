@@ -1,0 +1,43 @@
+#Eureka properties
+eureka:
+  client:
+    enabled: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    appname: billing-service
+    lease-renewal-interval-in-seconds: 35
+    prefer-ip-address: true
+
+#General application status (End point)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+
+server:
+  port: 0
+
+
+#Spring Cloud properties
+#Database properties
+spring:
+  cloud:
+    config:
+      enabled: false
+  datasource:
+    driverClassName: org.postgresql.Driver
+    password: root
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5435}/bills
+    username: root
+
+#Hibernate properties
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        hbm2ddl:
+          auto: update
+        show_sql: true

@@ -1,0 +1,138 @@
+databaseChangeLog:
+  - changeSet:
+      id: 10841972536-1
+      author: Rick J. Miller
+      changes:
+        - createTable:
+            tableName: passenger
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: surname
+                  type: VARCHAR(255)
+              - column:
+                  name: passport_info_id
+                  type: BIGINT
+                  constraints:
+                    unique: true
+              - column:
+                  name: contact_info_id
+                  type: BIGINT
+                  constraints:
+                    unique: true
+
+  - changeSet:
+      id: 10841972536-2
+      author: Rick J. Miller
+      changes:
+        - createTable:
+            tableName: booking
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    unique: true
+              - column:
+                  name: service_id
+                  type: BIGINT
+                  constraints:
+                    unique: true
+              - column:
+                  name: order_id
+                  type: BIGINT
+                  constraints:
+                    unique: true
+              - column:
+                  name: status
+                  type: VARCHAR(255)
+
+  - changeSet:
+      id: 10841972536-3
+      author: Rick J. Miller
+      changes:
+        - createTable:
+            tableName: contact_info
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: phone_number
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+
+  - changeSet:
+      id: 10841972536-4
+      author: Rick J. Miller
+      changes:
+        - createTable:
+            tableName: passport_info
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: passport_number
+                  type: INTEGER
+                  constraints:
+                    unique: true
+              - column:
+                  name: passport_series
+                  type: INTEGER
+
+              - column:
+                  name: unit_code
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+
+  - changeSet:
+      id: 10841972536-5
+      author: Rick J. Miller
+      changes:
+        - createTable:
+            tableName: ticket
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: number
+                  type: INTEGER
+                  constraints:
+                    unique: true
+              - column:
+                  name: event_date_time
+                  type: TIMESTAMP
+              - column:
+                  name: address
+                  type: VARCHAR(255)

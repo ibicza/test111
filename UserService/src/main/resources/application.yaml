@@ -1,0 +1,39 @@
+#Eureka properties
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+server:
+  port: 0
+spring:
+  application:
+    name: eclient_userService
+  cloud:
+    function:
+      definition: profileCreated
+    stream:
+      bindings:
+        profileCreated-in-0:
+          destination: profile/created
+          group: userserviceGroup
+      kafka:
+        binder:
+          brokers: localhost:9092
+  #Database properties
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: root
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5448}/userService
+    username: root
+  #Hibernate properties
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect

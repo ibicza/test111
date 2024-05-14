@@ -1,0 +1,30 @@
+version: '3.5'
+
+services:
+  db:
+    container_name: pg_db_refresh
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: refresh
+    ports:
+      - "5432:5441"
+  pgadmin:
+    container_name: pgadmin_refresh
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: hdnhdxv@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5070:80"
+  CleaningRefreshTokensService-app:
+    build: ./
+    container_name: 'java-app-CleaningRefreshTokensService'
+    image: cleaning_refresh_tokens_service-app
+    ports:
+      - "52562:52562"
+    environment:
+      SERVER_PORT: 52562
+      SPRING_DATASOURCE_URL: jdbc:postgresql://pg_db_refresh:5432/refresh

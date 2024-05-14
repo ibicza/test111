@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1703708236132-1
+      author: Anatolito (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: products_pkey
+                  name: product_id
+                  startWith: 4
+                  type: INTEGER
+              - column:
+                  name: product_created_at
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  name: product_description
+                  type: VARCHAR(255)
+              - column:
+                  name: product_manufacturer
+                  type: VARCHAR(255)
+              - column:
+                  name: product_name
+                  type: VARCHAR(255)
+              - column:
+                  name: product_price
+                  type: FLOAT8
+              - column:
+                  name: product_volume
+                  type: FLOAT8
+              - column:
+                  name: product_weight
+                  type: FLOAT8
+              - column:
+                  name: product_updated_at
+                  type: TIMESTAMP WITHOUT TIME ZONE
+            tableName: products

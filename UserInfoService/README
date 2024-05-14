@@ -1,0 +1,2 @@
+A list of ID's is accepted as id. A request is made using feign client to auth-service to receive emails in a list.
+The list of DTOs is returned in the form of id - email, from this list get the DTOs { accountId, email, firstName, lastName }

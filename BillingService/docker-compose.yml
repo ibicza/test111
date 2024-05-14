@@ -1,0 +1,32 @@
+version: '3.5'
+
+services:
+  db:
+    container_name: pg_db_bills
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: bills
+    ports:
+      - "5432:5435"
+
+  pgadmin:
+    container_name: pgadmin_bills
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: hdnhdxv@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+  BillingService-app:
+    build: ./
+    image: billing_service-app
+    container_name: 'java-app-BillingService'
+    ports:
+      - "52568:52568"
+    environment:
+      SERVER_PORT: 52568
+      SPRING_DATASOURCE_URL: jdbc:postgresql://pg_db_bills:5432/bills
+      EUREKA_HOST: "http://eureka-server:8761/eureka/"

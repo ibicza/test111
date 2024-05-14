@@ -1,0 +1,29 @@
+version: '3.5'
+
+services:
+  db:
+    container_name: pg_db_CartService
+    image: postgres:16
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: cartService
+    ports:
+      - "5432:5439"
+  pgadmin:
+    container_name: pgadmin_CartService
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: hdnhdxv@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+  CartService-app:
+    build: ./
+    container_name: 'java-app-CartService'
+    image: cart_service-app
+    ports:
+      - "52564:52564"
+    environment:
+      SERVER_PORT: 52564
+      SPRING_DATASOURCE_URL: jdbc:postgresql://pg_db_CartService:5432/cartService

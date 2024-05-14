@@ -1,0 +1,31 @@
+version: '3.5'
+
+services:
+  db:
+    container_name: pg_db_accountinfoservice
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: accountInfoService
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    container_name: pgadmin_accountinfoservice
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: hdnhdxv@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+
+  AccountInfoService-app:
+    build: ./
+    container_name: 'java-app-accountinfoservice'
+    image: account_info_service-app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://pg_db_accountinfoservice:5432/accountInfoService
+    ports:
+      - "52569:52569"

@@ -1,0 +1,35 @@
+#Eureka properties
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+#General application status (End point)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+server:
+  port: 0
+
+spring:
+  application:
+    name: eclient_clientProfileService
+  #Database properties
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: root
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5442}/profileService
+    username: root
+  #Hibernate properties
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  #Liquibase properties
+  liquibase:
+    change-log: classpath:db.changelog-master.yaml
+    contexts: dev
+    enabled: true

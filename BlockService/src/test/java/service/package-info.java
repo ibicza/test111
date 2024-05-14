@@ -1,0 +1,4 @@
+/**
+ * Тестирование  BlockedInfoService.
+ */
+package service;

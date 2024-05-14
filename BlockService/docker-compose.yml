@@ -1,0 +1,30 @@
+version: '3.5'
+
+services:
+  db:
+    container_name: pg_db_blocked
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: blocked
+    ports:
+      - "5432:5436"
+  pgadmin:
+    container_name: pgadmin_blocked
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: hdnhdxv@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5070:80"
+  BlockService-app:
+    build: ./
+    container_name: 'java-app-BlockService'
+    image: block_service-app
+    ports:
+      - "52567:52567"
+    environment:
+      SERVER_PORT: 52567
+      SPRING_DATASOURCE_URL: jdbc:postgresql://pg_db_blocked:5432/blocked

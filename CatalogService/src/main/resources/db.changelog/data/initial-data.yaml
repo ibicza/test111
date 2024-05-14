@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1703708236132-1
+      author: Anatolito (generated)
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: product_id
+                  name: product_id
+                  type: NUMERIC
+              - column:
+                  header: product_created_at
+                  name: product_created_at
+                  type: TIMESTAMP
+              - column:
+                  header: product_description
+                  name: product_description
+                  type: STRING
+              - column:
+                  header: product_manufacturer
+                  name: product_manufacturer
+                  type: STRING
+              - column:
+                  header: product_name
+                  name: product_name
+                  type: STRING
+              - column:
+                  header: product_price
+                  name: product_name
+                  type: FLOAT
+              - column:
+                  header: product_volume
+                  name: product_volume
+                  type: FLOAT
+              - column:
+                  header: product_weight
+                  name: product_weight
+                  type: FLOAT
+              - column:
+                  header: product_updated_at
+                  name: product_updated_at
+                  type: TIMESTAMP
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/products.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: products

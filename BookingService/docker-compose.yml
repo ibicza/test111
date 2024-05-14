@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    container_name: pg_db_booking
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: booking
+    ports:
+      - "5437:5432"
+  BookingService-app:
+    build: ./
+    container_name: 'java-app-BookingService'
+    image: booking_service-app
+    ports:
+      - "52566:52566"
+    environment:
+      SERVER_PORT: 52566
+      SPRING_DATASOURCE_URL: jdbc:postgresql://pg_db_booking:5432/booking
+

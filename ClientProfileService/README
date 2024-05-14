@@ -1,0 +1,5 @@
+ClientProfileService - Внутреннее API для работы с клиентами
+
+Контроллер в ClientProfileService через endpoint /api/inner/client
+методом GET принимает параметр id аккаунта в виде int
+возвращает DTO клиента { firstName, lastName, email }

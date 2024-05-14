@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  db:
+    container_name: pg_db_cancellationService
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: cancellationService
+    ports:
+      - "5438:5432"
+  CancellationService-app:
+    build: ./
+    container_name: 'java-app-CancellationService'
+    image: cancellation_service-app
+    ports:
+      - "52565:52565"
+    environment:
+      SERVER_PORT: 52565
+      SPRING_DATASOURCE_URL: jdbc:postgresql://pg_db_cancellationService:5432/cancellationService

@@ -1,0 +1,33 @@
+#General application status (End point)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+server:
+  port: 0
+
+#FreeMarker settings
+spring:
+  freemarker:
+    check-template-location: false
+
+cloud:
+  stream:
+    bindings:
+      processBirthdayInfo-in-0:
+        destination: birthdayGreetings
+        group: emailGroup
+
+  function:
+    definition: processBirthdayInfo
+
+
+  #Email configuration settings
+  mail:
+    host: smtp.mail.ru
+    password: cMTiA1ZbZxz62jLeyFGq
+    port: 587
+    username: foma.kinyaev@internet.ru
+
